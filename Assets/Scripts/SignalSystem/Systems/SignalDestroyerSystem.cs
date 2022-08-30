@@ -9,12 +9,11 @@ namespace Signals.Systems
         {
             EcsWorld world = systems.GetWorld();
 
-            var filter = world.Filter<BaseSignal>().End();
-            var pool = world.GetPool<BaseSignal>();
+            var filter = world.Filter<SignalComponent>().End();
             
             foreach (var entityID in filter)
             {
-                pool.Del(entityID);
+                world.DelEntity(entityID);
             }
         }
     }

@@ -1,4 +1,6 @@
 ﻿using System;
+using CharacterController.Systems;
+using InputSystem.Systems;
 using Leopotam.EcsLite;
 using Signals.Systems;
 using UnityEngine;
@@ -36,6 +38,8 @@ namespace Ecs
             _systems.Add(new SignalSpawnerSystem());
 
             // Second systems.
+            _systems.Add(new EcsInputSystem());
+            _systems.Add(new CharacterMoveControllerSystem());
             
             // Last systems.
             _systems.Add(new SignalDestroyerSystem());

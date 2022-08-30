@@ -1,6 +1,6 @@
 ﻿namespace Signals.Components
 {
-    public struct BaseSignal
+    public struct SignalComponent
     {
         
     }
