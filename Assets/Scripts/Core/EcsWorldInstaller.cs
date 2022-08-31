@@ -1,26 +1,24 @@
-﻿using System;
-using CharacterController.Systems;
-using InputSystem.Systems;
+﻿using Systems;
 using Leopotam.EcsLite;
-using Signals.Systems;
-using UnityEngine;
+using Zenject;
 
 namespace Ecs
 {
-    public class EcsWorldInstaller : MonoBehaviour
+    public class EcsWorldInstaller : MonoInstaller
     {
         private EcsWorld _world;
         private IEcsSystems _systems;
 
-        private void Awake()
+        public override void InstallBindings()
         {
             _world = new EcsWorld();
             _systems = new EcsSystems(_world);
             RegisterSystems();
             
             _systems.Init();
+            Container.Bind<EcsWorld>().FromInstance(_world);
         }
-
+        
         private void Update()
         {
             _systems.Run();
@@ -39,7 +37,10 @@ namespace Ecs
 
             // Second systems.
             _systems.Add(new EcsInputSystem());
-            _systems.Add(new CharacterMoveControllerSystem());
+            _systems.Add(new CharacterMovingSystem());
+            _systems.Add(new TargetMoveSystem());
+            _systems.Add(new ButtonPressingSystem());
+            _systems.Add(new DoorsMovingSystem());
             
             // Last systems.
             _systems.Add(new SignalDestroyerSystem());
